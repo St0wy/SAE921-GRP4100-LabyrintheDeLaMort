@@ -151,13 +151,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Armor.cpp" />
     <ClCompile Include="src\Item.cpp" />
     <ClCompile Include="src\Jewel.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Armor.h" />
     <ClInclude Include="src\Item.h" />
     <ClInclude Include="src\Jewel.h" />
+    <ClInclude Include="src\Weapon.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
