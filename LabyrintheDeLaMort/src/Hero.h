@@ -21,5 +21,9 @@ private:
 public:
 	// TODO : Make constructors
 
+	[[nodiscard]] int get_base_luck() const;
+	[[nodiscard]] int get_luck() const;
+	void increment_base_luck();
+	void set_luck(int luck);
 };
 

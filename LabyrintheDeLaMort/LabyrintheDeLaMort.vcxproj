@@ -153,10 +153,12 @@
   <ItemGroup>
     <ClCompile Include="src\Armor.cpp" />
     <ClCompile Include="src\DexerityPotion.cpp" />
+    <ClCompile Include="src\EndurancePotion.cpp" />
     <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\Hero.cpp" />
     <ClCompile Include="src\Item.cpp" />
     <ClCompile Include="src\Jewel.cpp" />
+    <ClCompile Include="src\LuckPotion.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Potion.cpp" />
     <ClCompile Include="src\Weapon.cpp" />
@@ -164,10 +166,12 @@
   <ItemGroup>
     <ClInclude Include="src\Armor.h" />
     <ClInclude Include="src\DexerityPotion.h" />
+    <ClInclude Include="src\EndurancePotion.h" />
     <ClInclude Include="src\Entity.h" />
     <ClInclude Include="src\Hero.h" />
     <ClInclude Include="src\Item.h" />
     <ClInclude Include="src\Jewel.h" />
+    <ClInclude Include="src\LuckPotion.h" />
     <ClInclude Include="src\Potion.h" />
     <ClInclude Include="src\Weapon.h" />
   </ItemGroup>
