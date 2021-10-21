@@ -21,9 +21,15 @@
     <ClCompile Include="src\Item.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Jewel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Item.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Jewel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
