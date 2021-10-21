@@ -12,8 +12,6 @@ using std::endl;
 
 int main()
 {
-	Potion p;
-	p.drink();
 
 	// obtain a seed from the system clock
 	const uint32_t seed = static_cast<uint32_t>(

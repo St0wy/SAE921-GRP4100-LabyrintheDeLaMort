@@ -4,7 +4,7 @@
 class Potion
 {
 public:
-	virtual void drink(Hero hero) = 0;
+	virtual void drink(Hero& hero) = 0;
 
 
 };
