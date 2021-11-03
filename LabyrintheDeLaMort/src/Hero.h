@@ -19,7 +19,21 @@ private:
 	std::unique_ptr<Weapon> weapon_;
 	std::unique_ptr<Armor> armor_;
 public:
-	// TODO : Make constructors
+	explicit Hero(std::default_random_engine& gen);
+
+	// TOO : Make constructors
+	Hero(
+		std::string name,
+		int dexterity,
+		int endurance,
+		std::default_random_engine& gen,
+		int luck,
+		std::vector<Jewel> jewels,
+		int gold,
+		std::vector<std::unique_ptr<Item>> items,
+		std::unique_ptr<Weapon> weapon,
+		std::unique_ptr<Armor> armor);
+
 
 	[[nodiscard]] int get_base_luck() const;
 	[[nodiscard]] int get_luck() const;
