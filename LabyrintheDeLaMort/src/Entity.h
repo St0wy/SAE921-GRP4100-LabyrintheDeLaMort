@@ -4,12 +4,12 @@
 
 class Entity
 {
-private:
+protected:
 	std::string name_;
 	int base_dexterity_;
-	int dexterity_;
 	int base_endurance_;
 	int endurance_;
+	int dexterity_;
 	std::default_random_engine& gen_;
 
 public:
@@ -24,7 +24,7 @@ public:
 
 	[[nodiscard]] int get_base_endurance() const;
 	[[nodiscard]] int get_endurance() const;
-	int set_endurance(int endurance);
+	void set_endurance(int endurance);
 
 	void recieve_damage(int damage);
 };

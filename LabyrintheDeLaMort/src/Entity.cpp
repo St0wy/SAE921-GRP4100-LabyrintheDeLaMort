@@ -10,9 +10,9 @@ Entity::Entity(std::default_random_engine& gen)
 Entity::Entity(std::string name, const int dexterity, const int endurance, std::default_random_engine& gen)
 	: name_(std::move(name)),
 	base_dexterity_(dexterity),
-	dexterity_(dexterity),
 	base_endurance_(endurance),
 	endurance_(endurance),
+	dexterity_(dexterity),
 	gen_(gen)
 {
 }
@@ -42,7 +42,7 @@ int Entity::get_endurance() const
 	return endurance_;
 }
 
-int Entity::set_endurance(const int endurance)
+void Entity::set_endurance(const int endurance)
 {
 	endurance_ = endurance;
 }

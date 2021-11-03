@@ -1,5 +1,6 @@
 #include "Hero.h"
 
+#include <iostream>
 #include <utility>
 
 Hero::Hero(std::default_random_engine& gen)
@@ -43,7 +44,58 @@ void Hero::increment_base_luck()
 	base_luck_++;
 }
 
+void Hero::decrement_luck()
+{
+	luck_--;
+}
+
 void Hero::set_luck(const int luck)
 {
 	luck_ = luck;
 }
+
+void Hero::fight(Creature& creature)
+{
+	const std::uniform_int_distribution distrib(2, 12);
+
+	const int attack_force_hero = dexterity_ + distrib(gen_);
+	const int attack_force_creature = creature.get_dexterity() + distrib(gen_);
+
+	if (attack_force_hero > attack_force_creature)
+	{
+		int attack_strength = 2;
+		char choice;
+		std::cout << "Vous attaquez la creature." << std::endl;
+		std::cout << "Voullez-vous tenter votre chance ? [o/n]" << std::endl;
+		std::cin >> choice;
+		if (choice == 'o')
+		{
+			attack_strength += is_lucky() ? 2 : -1;
+			decrement_luck();
+		}
+
+		creature.recieve_damage(attack_strength);
+	}
+	else if (attack_force_creature > attack_force_hero)
+	{
+		int attack_strength = 2;
+		char choice;
+		std::cout << "Vous etes attaque par la creature." << std::endl;
+		std::cout << "Voullez-vous tenter votre chance ? [o/n]" << std::endl;
+		std::cin >> choice;
+		if (choice == 'o')
+		{
+			attack_strength += is_lucky() ? -1 : 1;
+			decrement_luck();
+		}
+
+		recieve_damage(attack_strength);
+	}
+}
+
+bool Hero::is_lucky() const
+{
+	const std::uniform_int_distribution distrib(2, 12);
+	return distrib(gen_) <= get_luck();
+}
+

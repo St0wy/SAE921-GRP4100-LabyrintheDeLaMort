@@ -6,6 +6,7 @@
 #include "Jewel.h"
 #include "Weapon.h"
 #include "Armor.h"
+#include "Creature.h"
 
 class Hero :
 	public Entity
@@ -38,6 +39,9 @@ public:
 	[[nodiscard]] int get_base_luck() const;
 	[[nodiscard]] int get_luck() const;
 	void increment_base_luck();
+	void decrement_luck();
 	void set_luck(int luck);
+	void fight(Creature& creature);
+	bool is_lucky() const;
 };
 
