@@ -12,6 +12,10 @@ using std::endl;
 
 int main()
 {
+	const int dexterity = rand();
+	Hero h = Hero(dexterity);
+	h.loose_gold();
+
 	// Get the current time
 	const uint32_t current_time = static_cast<uint32_t>(
 		std::chrono::high_resolution_clock::now().time_since_epoch().count());
