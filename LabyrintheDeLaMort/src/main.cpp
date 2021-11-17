@@ -1,8 +1,3 @@
-#include "Entity.h"
-#include "Item.h"
-
-#include <iostream>
-#include <string>
 #include <SFML/Graphics.hpp>
 
 constexpr int WINDOW_WIDTH = 900;
