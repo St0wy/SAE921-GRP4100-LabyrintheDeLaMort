@@ -1,6 +1,8 @@
 #pragma once
 #include <random>
 #include <string>
+#include <SFML/Graphics.hpp>
+
 
 class Entity
 {
@@ -11,12 +13,15 @@ protected:
 	int endurance_;
 	int dexterity_;
 	std::default_random_engine& gen_;
+	sf::Texture texture_;
+	sf::Sprite sprite_;
 
 public:
 	static constexpr int DEFAULT_DAMAGE = 2;
 
 	explicit Entity(std::default_random_engine& gen);
-	Entity(std::string name, int dexterity, int endurance, std::default_random_engine& gen);
+	Entity(std::string name, int dexterity, int endurance, std::default_random_engine& gen, const std::string&
+	       texture_file_name);
 
 	[[nodiscard]] int get_base_dexterity() const;
 	[[nodiscard]] int get_dexterity() const;

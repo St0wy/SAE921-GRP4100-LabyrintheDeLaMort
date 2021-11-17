@@ -3,11 +3,17 @@
 #include <utility>
 
 Entity::Entity(std::default_random_engine& gen)
-	: Entity("", 0, 0, gen)
+	: Entity("", 0, 0, gen, "")
 {
 }
 
-Entity::Entity(std::string name, const int dexterity, const int endurance, std::default_random_engine& gen)
+Entity::Entity(
+	std::string name,
+	const int dexterity,
+	const int endurance,
+	std::default_random_engine& gen,
+	const std::string& texture_file_name)
+
 	: name_(std::move(name)),
 	base_dexterity_(dexterity),
 	base_endurance_(endurance),
@@ -15,6 +21,11 @@ Entity::Entity(std::string name, const int dexterity, const int endurance, std::
 	dexterity_(dexterity),
 	gen_(gen)
 {
+	if (texture_file_name.length() > 0)
+	{
+		texture_.loadFromFile(texture_file_name);
+		sprite_.setTexture(texture_);
+	}
 }
 
 int Entity::get_base_dexterity() const
