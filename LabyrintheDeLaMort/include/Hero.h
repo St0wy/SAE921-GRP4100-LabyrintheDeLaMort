@@ -22,7 +22,6 @@ private:
 public:
 	explicit Hero(std::default_random_engine& gen);
 
-	// TOO : Make constructors
 	Hero(
 		std::string name,
 		int dexterity,
@@ -33,11 +32,14 @@ public:
 		int gold,
 		std::vector<std::unique_ptr<Item>> items,
 		std::unique_ptr<Weapon> weapon,
-		std::unique_ptr<Armor> armor);
+		std::unique_ptr<Armor> armor,
+		const std::string& texture_file_name);
 
 
 	[[nodiscard]] int get_base_luck() const;
 	[[nodiscard]] int get_luck() const;
+	
+
 	void increment_base_luck();
 	void decrement_luck();
 	void set_luck(int luck);

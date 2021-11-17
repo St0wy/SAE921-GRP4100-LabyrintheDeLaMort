@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include "Hero.h"
 
 constexpr int WINDOW_WIDTH = 900;
 constexpr int WINDOW_HEIGHT = 600;
@@ -7,6 +8,8 @@ constexpr char WINDOW_NAME[] = "Labyrinthe de la mort";
 
 int main()
 {
+    std::default_random_engine gen;
+
     sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), WINDOW_NAME, sf::Style::Close);
 
     // Basic Setup of the window
@@ -14,19 +17,12 @@ int main()
     window.setVerticalSyncEnabled(true);
     window.setFramerateLimit(FRAMERATE);
 
-    sf::Texture hero;
-    hero.loadFromFile("data/hero.png");
-
-    sf::Sprite sprite;
-    sprite.setTexture(hero);
-
-    sf::Vector2f hero_sprite_center(hero.getSize());
-    hero_sprite_center /= 2.0f;
-    sprite.setOrigin(hero_sprite_center);
+    Hero hero(gen);
+    hero.set_texture("data/hero.png");
 
     sf::Vector2f window_center(window.getSize());
     window_center /= 2.0f;
-    sprite.setPosition(window_center);
+    hero.get_sprite().setPosition(window_center);
 
     while (window.isOpen())
     {
@@ -50,6 +46,7 @@ int main()
         // Graphical Region
         window.clear(sf::Color::Black);
 
+        sf::Sprite& sprite = hero.get_sprite();
         window.draw(sprite);
 
         window.display();

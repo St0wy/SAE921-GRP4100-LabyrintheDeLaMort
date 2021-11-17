@@ -21,11 +21,7 @@ Entity::Entity(
 	dexterity_(dexterity),
 	gen_(gen)
 {
-	if (texture_file_name.length() > 0)
-	{
-		texture_.loadFromFile(texture_file_name);
-		sprite_.setTexture(texture_);
-	}
+	set_texture(texture_file_name);
 }
 
 int Entity::get_base_dexterity() const
@@ -46,6 +42,28 @@ void Entity::set_dexterity(const int dexterity)
 int Entity::get_base_endurance() const
 {
 	return base_endurance_;
+}
+
+void Entity::set_texture(const std::string& texture_file_name)
+{
+	if (texture_file_name.length() > 0)
+	{
+		texture_.loadFromFile(texture_file_name);
+		sprite_.setTexture(texture_);
+		sprite_.setOrigin(get_texture_center());
+	}
+}
+
+sf::Sprite& Entity::get_sprite()
+{
+	return sprite_;
+}
+
+sf::Vector2f Entity::get_texture_center() const
+{
+	sf::Vector2f texture_center(texture_.getSize());
+	texture_center /= 2.0f;
+	return texture_center;
 }
 
 int Entity::get_endurance() const

@@ -31,6 +31,10 @@ public:
 	[[nodiscard]] int get_endurance() const;
 	void set_endurance(int endurance);
 
+	void set_texture(const std::string& texture_file_name);
+	sf::Sprite& get_sprite();
+	sf::Vector2f get_texture_center() const;
+
 	void recieve_damage(int damage);
 };
 
