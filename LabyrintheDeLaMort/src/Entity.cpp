@@ -48,9 +48,11 @@ void Entity::set_texture(const std::string& texture_file_name)
 {
 	if (texture_file_name.length() > 0)
 	{
-		texture_.loadFromFile(texture_file_name);
-		sprite_.setTexture(texture_);
-		sprite_.setOrigin(get_texture_center());
+		if (texture_.loadFromFile(texture_file_name))
+		{
+			sprite_.setTexture(texture_);
+			sprite_.setOrigin(get_texture_center());
+		}
 	}
 }
 
@@ -64,6 +66,11 @@ sf::Vector2f Entity::get_texture_center() const
 	sf::Vector2f texture_center(texture_.getSize());
 	texture_center /= 2.0f;
 	return texture_center;
+}
+
+void Entity::on_draw(sf::RenderTarget& target, const sf::RenderStates states) const
+{
+	target.draw(sprite_, states);
 }
 
 int Entity::get_endurance() const

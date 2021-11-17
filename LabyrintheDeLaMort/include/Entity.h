@@ -3,8 +3,9 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 
+#include "SceneNode.h"
 
-class Entity
+class Entity : public SceneNode
 {
 protected:
 	std::string name_;
@@ -35,6 +36,7 @@ public:
 	sf::Sprite& get_sprite();
 	sf::Vector2f get_texture_center() const;
 
+	void on_draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	void recieve_damage(int damage);
 };
 

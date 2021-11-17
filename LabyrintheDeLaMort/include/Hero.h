@@ -8,7 +8,7 @@
 #include "Armor.h"
 #include "Creature.h"
 
-class Hero :
+class Hero final :
 	public Entity
 {
 private:
@@ -35,10 +35,8 @@ public:
 		std::unique_ptr<Armor> armor,
 		const std::string& texture_file_name);
 
-
 	[[nodiscard]] int get_base_luck() const;
 	[[nodiscard]] int get_luck() const;
-	
 
 	void increment_base_luck();
 	void decrement_luck();
