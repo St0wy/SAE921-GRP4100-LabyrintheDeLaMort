@@ -14,6 +14,20 @@ int main()
     window.setVerticalSyncEnabled(true);
     window.setFramerateLimit(FRAMERATE);
 
+    sf::Texture hero;
+    hero.loadFromFile("data/hero.png");
+
+    sf::Sprite sprite;
+    sprite.setTexture(hero);
+
+    sf::Vector2f hero_sprite_center(hero.getSize());
+    hero_sprite_center /= 2.0f;
+    sprite.setOrigin(hero_sprite_center);
+
+    sf::Vector2f window_center(window.getSize());
+    window_center /= 2.0f;
+    sprite.setPosition(window_center);
+
     while (window.isOpen())
     {
         // on inspecte tous les évènements de la fenêtre qui ont été émis depuis
@@ -34,8 +48,11 @@ int main()
         }
 
         // Graphical Region
-        window.clear(sf::Color::White);
+        window.clear(sf::Color::Black);
+
+        window.draw(sprite);
 
         window.display();
+
     }
 }
