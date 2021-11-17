@@ -7,6 +7,8 @@ constexpr int FRAMERATE = 60;
 constexpr char WINDOW_NAME[] = "Labyrinthe de la mort";
 constexpr float SPEED = 5.0f;
 
+void compute_move(Entity& entity);
+
 int main()
 {
 	std::default_random_engine gen;
@@ -43,7 +45,22 @@ int main()
 			}
 		}
 
-		sf::Vector2f move;
+		compute_move(hero);
+
+		// Graphical Region
+		window.clear(sf::Color::Black);
+
+		sf::Sprite& sprite = hero.get_sprite();
+		window.draw(sprite);
+
+		window.display();
+
+	}
+}
+
+void compute_move(Entity& entity)
+{
+	sf::Vector2f move;
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 		{
 			move += sf::Vector2f(0, -1);
@@ -61,15 +78,5 @@ int main()
 		}
 		move *= SPEED;
 
-		hero.get_sprite().move(move);
-
-		// Graphical Region
-		window.clear(sf::Color::Black);
-
-		sf::Sprite& sprite = hero.get_sprite();
-		window.draw(sprite);
-
-		window.display();
-
-	}
+		entity.get_sprite().move(move);
 }
