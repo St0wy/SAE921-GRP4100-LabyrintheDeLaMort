@@ -7,7 +7,7 @@ constexpr char WINDOW_NAME[] = "Labyrinthe de la mort";
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), WINDOW_NAME);
+    sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), WINDOW_NAME, sf::Style::Close);
 
     // Basic Setup of the window
     // Vertical sync, framerate
