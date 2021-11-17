@@ -3,7 +3,7 @@
 #
 cmake_minimum_required (VERSION 3.8)
 
-project (" SAE921-GRP4100-LabyrintheDeLaMort")
+project ("SAE921-GRP4100-LabyrintheDeLaMort")
 
 # Include sub-projects.
 set(EXECUTABLE_CUSTOM_NAME "LabyrintheDeLaMort")

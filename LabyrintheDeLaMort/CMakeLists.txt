@@ -32,14 +32,14 @@ add_custom_target(
 
 # Get SFML and box2d libraries
 find_package(OpenGL REQUIRED)
-find_package(SFML COMPONENTS system window graphics CONFIG REQUIRED)
+find_package(SFML COMPONENTS system window graphics main CONFIG REQUIRED)
 find_package(box2d CONFIG REQUIRED)
 include_directories(include/)
 
 # Add source to this project's executable.
 # add_executable (${EXECUTABLE_CUSTOM_NAME} "main.cpp"  "code.cpp")
 file(GLOB_RECURSE PROJECT_SRC src/*.cpp include/*.h)
-add_executable(${EXECUTABLE_CUSTOM_NAME} ${PROJECT_SRC})
+add_executable(${EXECUTABLE_CUSTOM_NAME} WIN32 ${PROJECT_SRC})
 
 # Add data dependencies
 add_dependencies(${EXECUTABLE_CUSTOM_NAME} DataTarget-${EXECUTABLE_CUSTOM_NAME})
