@@ -11,21 +11,23 @@ Hero::Hero(std::default_random_engine& gen)
 	gold_(0),
 	items_(std::vector<std::unique_ptr<Item>>()),
 	weapon_(nullptr),
-	armor_(nullptr)
+	armor_(nullptr),
+	state_(HeroState::Idle)
 {
 }
 
 Hero::Hero(std::string name, const int dexterity, const int endurance, std::default_random_engine& gen, const int luck,
 	std::vector<Jewel> jewels, const int gold, std::vector<std::unique_ptr<Item>> items, std::unique_ptr<Weapon> weapon,
-	std::unique_ptr<Armor> armor, const std::string& texture_file_name)
-	: Entity(std::move(name), dexterity, endurance, gen, texture_file_name),
+	std::unique_ptr<Armor> armor, const std::string&)
+	: Entity(std::move(name), dexterity, endurance, gen),
 	base_luck_(luck),
 	luck_(luck),
 	jewels_(std::move(jewels)),
 	gold_(gold),
 	items_(std::move(items)),
 	weapon_(std::move(weapon)),
-	armor_(std::move(armor))
+	armor_(std::move(armor)),
+	state_(HeroState::Idle)
 {
 }
 
@@ -52,6 +54,16 @@ void Hero::decrement_luck()
 void Hero::set_luck(const int luck)
 {
 	luck_ = luck;
+}
+
+HeroState Hero::get_state() const
+{
+	return state_;
+}
+
+void Hero::set_state(const HeroState state)
+{
+	state_ = state;
 }
 
 void Hero::fight(Creature& creature)

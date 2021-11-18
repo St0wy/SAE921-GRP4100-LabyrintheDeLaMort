@@ -7,6 +7,7 @@
 #include "Weapon.h"
 #include "Armor.h"
 #include "Creature.h"
+#include "HeroState.h"
 
 class Hero final :
 	public Entity
@@ -19,6 +20,7 @@ private:
 	std::vector<std::unique_ptr<Item>> items_;
 	std::unique_ptr<Weapon> weapon_;
 	std::unique_ptr<Armor> armor_;
+	HeroState state_;
 public:
 	explicit Hero(std::default_random_engine& gen);
 
@@ -41,6 +43,10 @@ public:
 	void increment_base_luck();
 	void decrement_luck();
 	void set_luck(int luck);
+
+	HeroState get_state() const;
+	void set_state(HeroState state);
+
 	void fight(Creature& creature);
 	bool is_lucky() const;
 };

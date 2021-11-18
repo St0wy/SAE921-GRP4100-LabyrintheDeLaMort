@@ -1,6 +1,5 @@
 ﻿# CMakeList.txt : CMake project for Formative10, include source and define
 # project specific logic here.
-#
 cmake_minimum_required (VERSION 3.8)
 
 set (CMAKE_CXX_STANDARD 20)
@@ -10,7 +9,7 @@ set_property(GLOBAL PROPERTY USE_FOLDERS On)
 
 # Add data files
 file(GLOB_RECURSE DATA_FILES data/*)
-source_group("Data/" FILES ${DATA_FILES})
+source_group("data/" FILES ${DATA_FILES})
 foreach(DATA ${DATA_FILES})
     get_filename_component(FILE_NAME ${DATA} NAME)
     get_filename_component(PATH_NAME ${DATA} DIRECTORY)
@@ -36,7 +35,7 @@ find_package(SFML COMPONENTS system window graphics main CONFIG REQUIRED)
 find_package(box2d CONFIG REQUIRED)
 include_directories(include/)
 
-# Add source to this project's executable.
+# Add source to this project's executable.  
 # add_executable (${EXECUTABLE_CUSTOM_NAME} "main.cpp"  "code.cpp")
 file(GLOB_RECURSE PROJECT_SRC src/*.cpp include/*.h)
 add_executable(${EXECUTABLE_CUSTOM_NAME} WIN32 ${PROJECT_SRC})
@@ -45,7 +44,7 @@ add_executable(${EXECUTABLE_CUSTOM_NAME} WIN32 ${PROJECT_SRC})
 add_dependencies(${EXECUTABLE_CUSTOM_NAME} DataTarget-${EXECUTABLE_CUSTOM_NAME})
 
 # Link libraries
-target_link_libraries(${EXECUTABLE_CUSTOM_NAME} PRIVATE sfml-graphics sfml-audio sfml-window sfml-system)
+target_link_libraries(${EXECUTABLE_CUSTOM_NAME} PRIVATE sfml-main sfml-graphics sfml-audio sfml-window sfml-system)
 
 if(MSVC)
 target_link_libraries(${EXECUTABLE_CUSTOM_NAME} PRIVATE sfml-main FLAC OpenAL OpenGL Vorbis)

@@ -4,6 +4,9 @@
 template<typename T>
 void normalize(sf::Vector2<T>& vec)
 {
+	if(vec.x == 0 && vec.y == 0)
+		return;
+
 	T length = vec_length<T>(vec);
 
 	if (length != 0.0)

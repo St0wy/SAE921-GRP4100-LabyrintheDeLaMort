@@ -14,15 +14,13 @@ protected:
 	int endurance_;
 	int dexterity_;
 	std::default_random_engine& gen_;
-	sf::Texture texture_;
 	sf::Sprite sprite_;
 
 public:
 	static constexpr int DEFAULT_DAMAGE = 2;
 
 	explicit Entity(std::default_random_engine& gen);
-	Entity(std::string name, int dexterity, int endurance, std::default_random_engine& gen, const std::string&
-	       texture_file_name);
+	Entity(std::string name, int dexterity, int endurance, std::default_random_engine& gen);
 
 	[[nodiscard]] int get_base_dexterity() const;
 	[[nodiscard]] int get_dexterity() const;
@@ -32,9 +30,8 @@ public:
 	[[nodiscard]] int get_endurance() const;
 	void set_endurance(int endurance);
 
-	void set_texture(const std::string& texture_file_name);
+	void set_texture(const sf::Texture& texture, const sf::IntRect& texture_rect);
 	sf::Sprite& get_sprite();
-	sf::Vector2f get_texture_center() const;
 
 	void on_draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	void recieve_damage(int damage);
