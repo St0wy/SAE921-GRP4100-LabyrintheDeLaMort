@@ -4,7 +4,7 @@
 #include <utility>
 
 Hero::Hero(std::default_random_engine& gen)
-	: Entity(gen),
+	: Character(gen),
 	base_luck_(0),
 	luck_(0),
 	jewels_(std::vector<Jewel>()),
@@ -19,7 +19,7 @@ Hero::Hero(std::default_random_engine& gen)
 Hero::Hero(std::string name, const int dexterity, const int endurance, std::default_random_engine& gen, const int luck,
 	std::vector<Jewel> jewels, const int gold, std::vector<std::unique_ptr<Item>> items, std::unique_ptr<Weapon> weapon,
 	std::unique_ptr<Armor> armor, const std::string&)
-	: Entity(std::move(name), dexterity, endurance, gen),
+	: Character(std::move(name), dexterity, endurance, gen),
 	base_luck_(luck),
 	luck_(luck),
 	jewels_(std::move(jewels)),

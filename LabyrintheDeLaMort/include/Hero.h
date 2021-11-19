@@ -8,9 +8,10 @@
 #include "Armor.h"
 #include "Creature.h"
 #include "HeroState.h"
+#include "Character.h"
 
 class Hero final :
-	public Entity
+	public Character
 {
 private:
 	int base_luck_;
