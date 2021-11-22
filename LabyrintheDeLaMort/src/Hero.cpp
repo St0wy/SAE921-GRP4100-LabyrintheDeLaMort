@@ -1,24 +1,19 @@
-#include "Hero.h"
-
 #include <iostream>
 #include <utility>
 
+#include "Hero.h"
+#include "VecUtils.h"
+#include "Consts.h"
+
 Hero::Hero(std::default_random_engine& gen)
-	: Character(gen),
-	base_luck_(0),
-	luck_(0),
-	jewels_(std::vector<Jewel>()),
-	gold_(0),
-	items_(std::vector<std::unique_ptr<Item>>()),
-	weapon_(nullptr),
-	armor_(nullptr),
-	state_(HeroState::Idle)
+	: Hero("", 0, 0, gen, 0, std::vector<Jewel>(),
+		0, std::vector<std::unique_ptr<Item>>(), nullptr, nullptr)
 {
 }
 
 Hero::Hero(std::string name, const int dexterity, const int endurance, std::default_random_engine& gen, const int luck,
 	std::vector<Jewel> jewels, const int gold, std::vector<std::unique_ptr<Item>> items, std::unique_ptr<Weapon> weapon,
-	std::unique_ptr<Armor> armor, const std::string&)
+	std::unique_ptr<Armor> armor)
 	: Character(std::move(name), dexterity, endurance, gen),
 	base_luck_(luck),
 	luck_(luck),
@@ -27,8 +22,17 @@ Hero::Hero(std::string name, const int dexterity, const int endurance, std::defa
 	items_(std::move(items)),
 	weapon_(std::move(weapon)),
 	armor_(std::move(armor)),
-	state_(HeroState::Idle)
+	state_(HeroState::Idle),
+	idle_(get_sprite(), 0.6f),
+	walk_(get_sprite(), 0.6f)
 {
+	for (int i = 0; i < 6; ++i)
+	{
+		idle_.add_frame(1.0f,
+			sf::IntRect(sf::Vector2i(i * SPRITE_SIZE.y, 80), SPRITE_SIZE));
+		walk_.add_frame(1.0f,
+			sf::IntRect(sf::Vector2i(i * SPRITE_SIZE.y, 80 + SPRITE_SIZE.x), SPRITE_SIZE));
+	}
 }
 
 int Hero::get_base_luck() const
@@ -66,7 +70,7 @@ void Hero::set_state(const HeroState state)
 	state_ = state;
 }
 
-void Hero::fight(Creature& creature)
+void Hero::fight(Creature & creature)
 {
 	const std::uniform_int_distribution distrib(2, 12);
 
@@ -111,3 +115,51 @@ bool Hero::is_lucky() const
 	return distrib(gen_) <= get_luck();
 }
 
+void Hero::update(const sf::Time delta_time)
+{
+	compute_move(delta_time);
+
+	switch (get_state())
+	{
+	case HeroState::Idle:
+		idle_.update(delta_time.asSeconds());
+		break;
+	case HeroState::Walk:
+		walk_.update(delta_time.asSeconds());
+		break;
+	}
+}
+
+void Hero::compute_move(const sf::Time delta_time)
+{
+	sf::Vector2f movement;
+	set_state(HeroState::Idle);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	{
+		movement += sf::Vector2f(0, -1);
+		set_state(HeroState::Walk);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	{
+		movement += sf::Vector2f(0, 1);
+		set_state(HeroState::Walk);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	{
+		movement += sf::Vector2f(-1, 0);
+		set_state(HeroState::Walk);
+		setScale(-1, 1);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	{
+		movement += sf::Vector2f(1, 0);
+		set_state(HeroState::Walk);
+		setScale(1, 1);
+	}
+
+	normalize(movement);
+
+	movement *= SPEED * delta_time.asSeconds();
+
+	this->move(movement);
+}

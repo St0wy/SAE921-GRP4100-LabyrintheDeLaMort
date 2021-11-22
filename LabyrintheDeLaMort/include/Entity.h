@@ -1,5 +1,4 @@
 #pragma once
-#include <random>
 #include <string>
 #include <SFML/Graphics.hpp>
 
@@ -14,11 +13,15 @@ protected:
 public:
 	static constexpr int DEFAULT_DAMAGE = 2;
 
-	explicit Entity();
-	Entity(std::string name);
+	Entity();
+	explicit Entity(std::string name);
+	Entity(Entity& entity) = default;
+	Entity(Entity&& entity) = default;
 
 	void set_texture(const sf::Texture& texture, const sf::IntRect& texture_rect);
 	sf::Sprite& get_sprite();
+
+	virtual void update(sf::Time delta_time) = 0;
 
 	void on_draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

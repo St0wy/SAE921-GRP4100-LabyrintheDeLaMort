@@ -9,6 +9,7 @@
 #include "Creature.h"
 #include "HeroState.h"
 #include "Character.h"
+#include "FrameAnimation.h"
 
 class Hero final :
 	public Character
@@ -22,9 +23,12 @@ private:
 	std::unique_ptr<Weapon> weapon_;
 	std::unique_ptr<Armor> armor_;
 	HeroState state_;
+	FrameAnimation idle_;
+	FrameAnimation walk_;
 public:
-	explicit Hero(std::default_random_engine& gen);
+	static constexpr float SPEED = 100.0f;
 
+	explicit Hero(std::default_random_engine& gen);
 	Hero(
 		std::string name,
 		int dexterity,
@@ -35,8 +39,8 @@ public:
 		int gold,
 		std::vector<std::unique_ptr<Item>> items,
 		std::unique_ptr<Weapon> weapon,
-		std::unique_ptr<Armor> armor,
-		const std::string& texture_file_name);
+		std::unique_ptr<Armor> armor);
+	Hero(Hero& hero);
 
 	[[nodiscard]] int get_base_luck() const;
 	[[nodiscard]] int get_luck() const;
@@ -50,5 +54,7 @@ public:
 
 	void fight(Creature& creature);
 	bool is_lucky() const;
+	void update(sf::Time delta_time) override;
+	void compute_move(sf::Time delta_time);
 };
 
