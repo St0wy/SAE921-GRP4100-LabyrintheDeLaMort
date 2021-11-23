@@ -15,6 +15,7 @@ Hero::Hero(std::string name, const int dexterity, const int endurance, std::defa
 	std::vector<Jewel> jewels, const int gold, std::vector<std::unique_ptr<Item>> items, std::unique_ptr<Weapon> weapon,
 	std::unique_ptr<Armor> armor)
 	: Character(std::move(name), dexterity, endurance, gen),
+	Collider(sf::RectangleShape(sf::Vector2f(6, 3))),
 	base_luck_(luck),
 	luck_(luck),
 	jewels_(std::move(jewels)),
@@ -33,6 +34,7 @@ Hero::Hero(std::string name, const int dexterity, const int endurance, std::defa
 		walk_.add_frame(1.0f,
 			sf::IntRect(sf::Vector2i(i * SPRITE_SIZE.y, 80 + SPRITE_SIZE.x), SPRITE_SIZE));
 	}
+	env_collision_box_.setPosition(-2, 3);
 }
 
 int Hero::get_base_luck() const
@@ -70,11 +72,17 @@ void Hero::set_state(const HeroState state)
 	state_ = state;
 }
 
-void Hero::fight(Creature & creature)
+void Hero::add_wall(Wall* wall)
+{
+	walls_.emplace_back(wall);
+}
+
+void Hero::fight(Creature& creature)
 {
 	const std::uniform_int_distribution distrib(2, 12);
 
 	const int attack_force_hero = dexterity_ + distrib(gen_);
+	// ReSharper disable once CppTooWideScopeInitStatement
 	const int attack_force_creature = creature.get_dexterity() + distrib(gen_);
 
 	if (attack_force_hero > attack_force_creature)
@@ -117,7 +125,28 @@ bool Hero::is_lucky() const
 
 void Hero::update(const sf::Time delta_time)
 {
-	compute_move(delta_time);
+	const sf::Vector2f movement = compute_move(delta_time);
+
+	bool is_colliding = false;
+
+	sf::RectangleShape copy = env_collision_box_;
+	copy.move(movement);
+	for (const auto& wall : walls_)
+	{
+		// TODO : Fix collision
+		auto shape_bounds = copy.getGlobalBounds();
+		auto wall_bounds = wall->get_env_collision_box().getGlobalBounds();
+		if (shape_bounds.intersects(wall_bounds))
+		{
+			is_colliding = true;
+			break;
+		}
+	}
+
+	if (!is_colliding)
+	{
+		apply_movement(movement);
+	}
 
 	switch (get_state())
 	{
@@ -130,36 +159,57 @@ void Hero::update(const sf::Time delta_time)
 	}
 }
 
-void Hero::compute_move(const sf::Time delta_time)
+sf::Vector2f Hero::compute_move(const sf::Time delta_time)
 {
 	sf::Vector2f movement;
 	set_state(HeroState::Idle);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
 		movement += sf::Vector2f(0, -1);
-		set_state(HeroState::Walk);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
 		movement += sf::Vector2f(0, 1);
-		set_state(HeroState::Walk);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
 		movement += sf::Vector2f(-1, 0);
-		set_state(HeroState::Walk);
-		setScale(-1, 1);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
 		movement += sf::Vector2f(1, 0);
-		set_state(HeroState::Walk);
-		setScale(1, 1);
 	}
 
 	normalize(movement);
 
 	movement *= SPEED * delta_time.asSeconds();
+	return movement;
+}
 
-	this->move(movement);
+void Hero::apply_movement(const sf::Vector2f movement)
+{
+	move(movement);
+	if (movement == sf::Vector2f(0, 0))
+	{
+		set_state(HeroState::Idle);
+	}
+	else
+	{
+		set_state(HeroState::Walk);
+	}
+
+	if (movement.x >= 0)
+	{
+		setScale(1, 1);
+	}
+	else
+	{
+		setScale(-1, 1);
+	}
+}
+
+void Hero::on_draw(sf::RenderTarget& target, const sf::RenderStates states) const
+{
+	Character::on_draw(target, states);
+	target.draw(env_collision_box_, states);
 }

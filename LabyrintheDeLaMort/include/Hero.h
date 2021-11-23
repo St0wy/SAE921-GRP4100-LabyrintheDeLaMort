@@ -10,9 +10,11 @@
 #include "HeroState.h"
 #include "Character.h"
 #include "FrameAnimation.h"
+#include "Collider.h"
+#include "Wall.h"
 
 class Hero final :
-	public Character
+	public Character, public Collider
 {
 private:
 	int base_luck_;
@@ -25,6 +27,7 @@ private:
 	HeroState state_;
 	FrameAnimation idle_;
 	FrameAnimation walk_;
+	std::vector<Wall*> walls_;
 public:
 	static constexpr float SPEED = 100.0f;
 
@@ -40,7 +43,6 @@ public:
 		std::vector<std::unique_ptr<Item>> items,
 		std::unique_ptr<Weapon> weapon,
 		std::unique_ptr<Armor> armor);
-	Hero(Hero& hero);
 
 	[[nodiscard]] int get_base_luck() const;
 	[[nodiscard]] int get_luck() const;
@@ -52,9 +54,13 @@ public:
 	HeroState get_state() const;
 	void set_state(HeroState state);
 
+	void add_wall(Wall* wall);
+
 	void fight(Creature& creature);
 	bool is_lucky() const;
 	void update(sf::Time delta_time) override;
-	void compute_move(sf::Time delta_time);
+	sf::Vector2f compute_move(sf::Time delta_time);
+	void apply_movement(sf::Vector2f movement);
+	void on_draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };
 
