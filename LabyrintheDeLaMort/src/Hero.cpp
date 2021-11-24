@@ -15,7 +15,6 @@ Hero::Hero(std::string name, const int dexterity, const int endurance, std::defa
 	std::vector<Jewel> jewels, const int gold, std::vector<std::unique_ptr<Item>> items, std::unique_ptr<Weapon> weapon,
 	std::unique_ptr<Armor> armor)
 	: Character(std::move(name), dexterity, endurance, gen),
-	Collider(sf::RectangleShape(sf::Vector2f(6, 3))),
 	base_luck_(luck),
 	luck_(luck),
 	jewels_(std::move(jewels)),
@@ -25,7 +24,8 @@ Hero::Hero(std::string name, const int dexterity, const int endurance, std::defa
 	armor_(std::move(armor)),
 	state_(HeroState::Idle),
 	idle_(get_sprite(), 0.6f),
-	walk_(get_sprite(), 0.6f)
+	walk_(get_sprite(), 0.6f),
+	env_collision_box_(sf::Vector2f(6, 3))
 {
 	for (int i = 0; i < 6; ++i)
 	{
@@ -129,13 +129,14 @@ void Hero::update(const sf::Time delta_time)
 
 	bool is_colliding = false;
 
-	sf::RectangleShape copy = env_collision_box_;
-	copy.move(movement);
+	auto collision_copy = env_collision_box_;
+	collision_copy.move(getPosition());
+	collision_copy.move(movement);
 	for (const auto& wall : walls_)
 	{
 		// TODO : Fix collision
-		auto shape_bounds = copy.getGlobalBounds();
-		auto wall_bounds = wall->get_env_collision_box().getGlobalBounds();
+		auto shape_bounds = collision_copy.getGlobalBounds();
+		auto wall_bounds = wall->get_global_bounds();
 		if (shape_bounds.intersects(wall_bounds))
 		{
 			is_colliding = true;
@@ -208,8 +209,16 @@ void Hero::apply_movement(const sf::Vector2f movement)
 	}
 }
 
+sf::FloatRect Hero::get_global_bounds() const
+{
+	auto global_bounds = env_collision_box_.getGlobalBounds();
+	global_bounds.left += this->getPosition().x;
+	global_bounds.top += this->getPosition().y;
+	return global_bounds;
+}
+
 void Hero::on_draw(sf::RenderTarget& target, const sf::RenderStates states) const
 {
 	Character::on_draw(target, states);
-	target.draw(env_collision_box_, states);
+	//target.draw(env_collision_box_, states);
 }

@@ -1,14 +1,17 @@
 #pragma once
 #include "Entity.h"
-#include "Collider.h"
 
 class Wall final
-	: public Entity, public Collider
+	: public Entity
 {
+private:
+	sf::RectangleShape env_collision_box_;
 public:
-	void update(sf::Time delta_time) override;
-};
+	Wall();
 
-inline void Wall::update(sf::Time delta_time)
-{
-}
+	sf::RectangleShape get_env_collision_box() const;
+
+	void update(sf::Time delta_time) override;
+	void on_draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+	sf::FloatRect get_global_bounds() const;
+};

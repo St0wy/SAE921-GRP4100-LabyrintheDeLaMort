@@ -29,16 +29,16 @@ int main()
 	// Create the vector of entities
 	std::vector<std::unique_ptr<Entity>> entities;
 
-	// Create the hero
-	entities.emplace_back(std::make_unique<Hero>(gen));
-	auto hero = dynamic_cast<Hero*>(entities[0].get());
-	hero->set_texture(char_spritesheet, sf::IntRect(sf::Vector2i(0, 80), SPRITE_SIZE));
-
 	// Create the walls
 	entities.emplace_back(std::make_unique<Wall>());
-	auto wall = dynamic_cast<Wall*>(entities[1].get());
+	auto wall = dynamic_cast<Wall*>(entities[0].get());
 	wall->setPosition(20, 20);
-	wall->set_texture(world_tilemap, sf::IntRect(sf::Vector2i(96, 64), SPRITE_SIZE));
+	wall->set_texture(world_tilemap, sf::IntRect(sf::Vector2i(32, 96), SPRITE_SIZE));
+
+	// Create the hero
+	entities.emplace_back(std::make_unique<Hero>(gen));
+	auto hero = dynamic_cast<Hero*>(entities[1].get());
+	hero->set_texture(char_spritesheet, sf::IntRect(sf::Vector2i(0, 80), SPRITE_SIZE));
 	hero->add_wall(wall);
 
 	sf::Clock clock;

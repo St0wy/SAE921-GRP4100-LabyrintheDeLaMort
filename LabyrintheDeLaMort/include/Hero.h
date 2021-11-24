@@ -10,11 +10,10 @@
 #include "HeroState.h"
 #include "Character.h"
 #include "FrameAnimation.h"
-#include "Collider.h"
 #include "Wall.h"
 
 class Hero final :
-	public Character, public Collider
+	public Character
 {
 private:
 	int base_luck_;
@@ -28,6 +27,7 @@ private:
 	FrameAnimation idle_;
 	FrameAnimation walk_;
 	std::vector<Wall*> walls_;
+	sf::RectangleShape env_collision_box_;
 public:
 	static constexpr float SPEED = 100.0f;
 
@@ -61,6 +61,7 @@ public:
 	void update(sf::Time delta_time) override;
 	sf::Vector2f compute_move(sf::Time delta_time);
 	void apply_movement(sf::Vector2f movement);
+	sf::FloatRect get_global_bounds() const;
 	void on_draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };
 
