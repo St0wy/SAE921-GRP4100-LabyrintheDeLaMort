@@ -10,7 +10,6 @@
 #include "HeroState.h"
 #include "Character.h"
 #include "FrameAnimation.h"
-#include "Wall.h"
 
 class Hero final :
 	public Character
@@ -26,7 +25,7 @@ private:
 	HeroState state_;
 	FrameAnimation idle_;
 	FrameAnimation walk_;
-	std::vector<Wall*> walls_;
+	//std::vector<Wall*> walls_;
 	sf::RectangleShape env_collision_box_;
 public:
 	static constexpr float SPEED = 100.0f;
@@ -54,7 +53,7 @@ public:
 	HeroState get_state() const;
 	void set_state(HeroState state);
 
-	void add_wall(Wall* wall);
+	//void add_wall(Wall* wall);
 
 	void fight(Creature& creature);
 	bool is_lucky() const;

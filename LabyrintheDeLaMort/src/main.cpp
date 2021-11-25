@@ -3,7 +3,10 @@
 
 #include "Hero.h"
 #include "Consts.h"
-#include "Wall.h"
+#include "TileMap.h"
+#include "Map2D.h"
+
+//std::vector<std::unique_ptr<Tile>> generate_map(const sf::Texture& world_tilemap);
 
 int main()
 {
@@ -23,23 +26,27 @@ int main()
 	// Load the spritesheet
 	sf::Texture char_spritesheet;
 	char_spritesheet.loadFromFile("./data/sprites/char_spritesheet.png");
-	sf::Texture world_tilemap;
-	world_tilemap.loadFromFile("./data/sprites/world_tilemap.png");
+
+	// Create the tilemap
+	Map2D map(MAP_LAYOUT, MAP_WIDTH, MAP_HEIGHT);
+	TileMap tilemap;
+	tilemap.load(TILEMAP_PATH, SPRITE_SIZE, map, MAP_WIDTH, MAP_HEIGHT);
 
 	// Create the vector of entities
 	std::vector<std::unique_ptr<Entity>> entities;
 
-	// Create the walls
-	entities.emplace_back(std::make_unique<Wall>());
-	auto wall = dynamic_cast<Wall*>(entities[0].get());
-	wall->setPosition(20, 20);
-	wall->set_texture(world_tilemap, sf::IntRect(sf::Vector2i(32, 96), SPRITE_SIZE));
-
 	// Create the hero
 	entities.emplace_back(std::make_unique<Hero>(gen));
-	auto hero = dynamic_cast<Hero*>(entities[1].get());
-	hero->set_texture(char_spritesheet, sf::IntRect(sf::Vector2i(0, 80), SPRITE_SIZE));
-	hero->add_wall(wall);
+	auto hero = dynamic_cast<Hero*>(entities[0].get());
+	hero->set_texture(char_spritesheet, sf::IntRect(sf::Vector2i(0, 80), sf::Vector2i(SPRITE_SIZE)));
+
+	//for (auto& entity : entities)
+	//{
+	//	if (auto wall = dynamic_cast<Wall*>(entity.get()))
+	//	{
+	//		hero->add_wall(wall);
+	//	}
+	//}
 
 	sf::Clock clock;
 	while (window.isOpen())
@@ -49,14 +56,8 @@ int main()
 
 		while (window.pollEvent(event))
 		{
-			switch (event.type)  // NOLINT(clang-diagnostic-switch-enum)
-			{
-			case sf::Event::Closed:
+			if (event.type == sf::Event::Closed)
 				window.close();
-				break;
-			default:
-				break;
-			}
 		}
 
 		// Update all the entities
@@ -69,10 +70,23 @@ int main()
 		window.clear(sf::Color::Black);
 
 		// Render all the entities
+		window.draw(tilemap);
 		for (auto& entity : entities)
 		{
 			window.draw(*entity);
 		}
+
 		window.display();
 	}
 }
+
+//std::vector<std::unique_ptr<Tile>> generate_map(const sf::Texture& world_tilemap)
+//{
+//	std::vector<std::unique_ptr<Tile>> entities;
+//	entities.emplace_back(std::make_unique<Wall>());
+//	const auto wall = dynamic_cast<Wall*>(entities[0].get());
+//	wall->setPosition(20, 20);
+//	wall->set_texture(world_tilemap, sf::IntRect(sf::Vector2i(32, 96), SPRITE_SIZE));
+//
+//	return entities;
+//}

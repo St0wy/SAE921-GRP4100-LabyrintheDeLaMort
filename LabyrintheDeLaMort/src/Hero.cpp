@@ -30,9 +30,9 @@ Hero::Hero(std::string name, const int dexterity, const int endurance, std::defa
 	for (int i = 0; i < 6; ++i)
 	{
 		idle_.add_frame(1.0f,
-			sf::IntRect(sf::Vector2i(i * SPRITE_SIZE.y, 80), SPRITE_SIZE));
+			sf::IntRect(sf::Vector2i(i * SPRITE_SIZE.y, 80), sf::Vector2i(SPRITE_SIZE)));
 		walk_.add_frame(1.0f,
-			sf::IntRect(sf::Vector2i(i * SPRITE_SIZE.y, 80 + SPRITE_SIZE.x), SPRITE_SIZE));
+			sf::IntRect(sf::Vector2i(i * SPRITE_SIZE.y, 80 + SPRITE_SIZE.x), sf::Vector2i(SPRITE_SIZE)));
 	}
 	env_collision_box_.setPosition(-2, 3);
 }
@@ -72,10 +72,10 @@ void Hero::set_state(const HeroState state)
 	state_ = state;
 }
 
-void Hero::add_wall(Wall* wall)
-{
-	walls_.emplace_back(wall);
-}
+//void Hero::add_wall(Wall* wall)
+//{
+//	walls_.emplace_back(wall);
+//}
 
 void Hero::fight(Creature& creature)
 {
@@ -129,25 +129,25 @@ void Hero::update(const sf::Time delta_time)
 
 	bool is_colliding = false;
 
-	auto collision_copy = env_collision_box_;
+	sf::RectangleShape collision_copy = env_collision_box_;
 	collision_copy.move(getPosition());
 	collision_copy.move(movement);
-	for (const auto& wall : walls_)
-	{
-		// TODO : Fix collision
-		auto shape_bounds = collision_copy.getGlobalBounds();
-		auto wall_bounds = wall->get_global_bounds();
-		if (shape_bounds.intersects(wall_bounds))
-		{
-			is_colliding = true;
-			break;
-		}
-	}
+	//for (const auto& wall : walls_)
+	//{
+	//	// TODO : Fix collision
+	//	auto shape_bounds = collision_copy.getGlobalBounds();
+	//	auto wall_bounds = wall->get_global_bounds();
+	//	if (shape_bounds.intersects(wall_bounds))
+	//	{
+	//		is_colliding = true;
+	//		break;
+	//	}
+	//}
 
-	if (!is_colliding)
+	/*if (!is_colliding)
 	{
-		apply_movement(movement);
-	}
+	}*/
+	apply_movement(movement);
 
 	switch (get_state())
 	{
