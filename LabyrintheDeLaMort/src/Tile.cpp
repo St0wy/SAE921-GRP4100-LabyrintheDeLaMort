@@ -135,3 +135,34 @@ sf::Vector2i Tile::get_tile_pos() const
 		return{3,7};
 	}
 }
+
+bool Tile::is_wall() const
+{
+	switch (tile_type_)
+	{
+	case TileType::BottomMidWall:
+		return true;
+	case TileType::DirtOne:
+	case TileType::DirtTwo:
+	case TileType::BSquare:
+	case TileType::HSquareE:
+	case TileType::HSquareW:
+	case TileType::SSquare:
+	case TileType::ThreeSSquare:
+	case TileType::HalfSSquare:
+	case TileType::SSquareTransiN:
+	case TileType::SSquareTransiS:
+	case TileType::SSquareTransiE:
+	case TileType::SSquareTransiW:
+	case TileType::LightSSquare1:
+	case TileType::LightSSquare13:
+	case TileType::LightSSquare123:
+	case TileType::LightSSquare12:
+	case TileType::LightSSquare124:
+	case TileType::LightSSquare24:
+	case TileType::LightSSquare2:
+	case TileType::Empty:
+	default:  // NOLINT(clang-diagnostic-covered-switch-default)
+		return false;
+	}
+}

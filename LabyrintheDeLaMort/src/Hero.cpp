@@ -134,7 +134,6 @@ void Hero::update(const sf::Time delta_time)
 	collision_copy.move(movement);
 	//for (const auto& wall : walls_)
 	//{
-	//	// TODO : Fix collision
 	//	auto shape_bounds = collision_copy.getGlobalBounds();
 	//	auto wall_bounds = wall->get_global_bounds();
 	//	if (shape_bounds.intersects(wall_bounds))

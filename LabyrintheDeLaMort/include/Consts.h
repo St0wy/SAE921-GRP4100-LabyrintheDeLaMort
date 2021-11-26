@@ -15,10 +15,13 @@ constexpr int WINDOW_HEIGHT = CAM_SIZE_Y * WINDOW_SCALE;
 constexpr char TILEMAP_PATH[] = "./data/sprites/world_tilemap.png";
 constexpr char SPRITESHEET_PATH[] = "./data/sprites/char_spritesheet.png";
 
+// The number of vertices for a square.
+constexpr int NUMBER_VERT_SQUARE = 4;
+
 constexpr std::size_t MAP_WIDTH = 2;
 constexpr std::size_t MAP_HEIGHT = 2;
 constexpr TileType MAP_LAYOUT[] = {
-	TileType::DirtOne, TileType:: BottomMidWall,
+	TileType::DirtOne, TileType::BottomMidWall,
 	TileType::HSquareE, TileType::SSquare,
 };
 
