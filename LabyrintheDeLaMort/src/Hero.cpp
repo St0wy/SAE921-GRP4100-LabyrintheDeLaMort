@@ -199,11 +199,11 @@ void Hero::apply_movement(const sf::Vector2f movement)
 		set_state(HeroState::Walk);
 	}
 
-	if (movement.x >= 0)
+	if (movement.x > 0)
 	{
 		setScale(1, 1);
 	}
-	else
+	else if (movement.x < 0)
 	{
 		setScale(-1, 1);
 	}
