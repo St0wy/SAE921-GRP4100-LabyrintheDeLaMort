@@ -1,0 +1,20 @@
+[Extérieur - Devant la grotte]
+
+"À  présent,  c'est  votre  tour  de  saluer  la  foule.  Alors  levant  haut 
+votre  écharpe  violette,  vous  prenez  une  profonde  et  dernière  bouffée  d'air  frais  avant  de 
+vous  retourner  et  de  franchir  les  piliers  de  pierre,  pour  pénétrer  dans  les  corridors 
+infernaux du puissant Baron Sukumvit et affronter les périls inconnus du Labyrinthe de la Mort."
+
+[Son : Foule]
+
+Mouvement vers l'intérieur de la grotte. (W)
+
+"Derrière vous les clameurs des spectateurs enthousiastes s'éloignent peu à peu tandis que 
+vous vous enfoncez dans les ténèbres du souterrain."
+
+[Son : Foule /2]
+
+[Intérieur - Grotte]
+
+
+
