@@ -21,45 +21,45 @@ sf::Vector2i Tile::get_tile_pos() const
 	{
 
 	case TileType::DirtOne:
-		return { 80, 48 };
+		return { 5, 3 };
 	case TileType::DirtTwo:
-		return { 80, 32 };
+		return { 5, 2 };
 	case TileType::BSquare:
-		return { 48, 16 };
+		return { 3, 1 };
 	case TileType::HSquareE:
-		return { 0, 32 };
+		return { 0, 2 };
 	case TileType::HSquareW:
-		return { 16, 32 };
+		return { 1, 2 };
 	case TileType::SSquare:
-		return { 32, 16 };
+		return { 2, 1 };
 	case TileType::ThreeSSquare:
-		return { 32, 32 };
+		return { 2, 2 };
 	case TileType::HalfSSquare:
-		return { 48, 32 };
+		return { 3, 2 };
 	case TileType::SSquareTransiN:
-		return { 64, 32 };
+		return { 4, 2 };
 	case TileType::SSquareTransiS:
-		return { 64, 48 };
+		return { 4, 3 };
 	case TileType::SSquareTransiE:
-		return { 48, 48 };
+		return { 3, 3 };
 	case TileType::SSquareTransiW:
-		return { 32, 48 };
+		return { 2, 3 };
 	case TileType::LightSSquare1:
-		return { 96, 48 };
+		return { 6, 3 };
 	case TileType::LightSSquare13:
-		return { 96, 32 };
+		return { 6, 2 };
 	case TileType::LightSSquare123:
-		return { 96, 16 };
+		return { 6, 1 };
 	case TileType::LightSSquare12:
-		return { 112, 16 };
+		return { 7, 1 };
 	case TileType::LightSSquare124:
-		return { 128, 16 };
+		return { 8, 1 };
 	case TileType::LightSSquare24:
-		return { 128, 32 };
+		return { 8, 2 };
 	case TileType::LightSSquare2:
-		return { 128, 48 };
+		return { 8, 3 };
 	case TileType::Empty:
 	default:  // NOLINT(clang-diagnostic-covered-switch-default)
-		return { 0, 64 };
+		return { 0, 4 };
 	}
 }

@@ -13,6 +13,8 @@ public:
 	Map2D();
 	Map2D(TileType const* tiles, std::size_t width, std::size_t height);
 
+	Tile& operator[](std::size_t index);
+
 	Tile& at(std::size_t i, std::size_t j);
 	[[nodiscard]] const Tile& at(std::size_t i, std::size_t j) const;
 };

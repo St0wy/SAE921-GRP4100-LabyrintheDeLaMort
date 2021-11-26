@@ -3,7 +3,6 @@
 #include <SFML/Graphics.hpp>
 
 #include "Map2D.h"
-#include "Tile.h"
 
 // Inspired by : https://www.sfml-dev.org/tutorials/2.5/graphics-vertex-array.php
 class TileMap final

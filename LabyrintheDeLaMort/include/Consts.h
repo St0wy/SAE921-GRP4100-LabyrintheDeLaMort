@@ -18,7 +18,6 @@ constexpr char SPRITESHEET_PATH[] = "./data/sprites/char_spritesheet.png";
 constexpr std::size_t MAP_WIDTH = 2;
 constexpr std::size_t MAP_HEIGHT = 2;
 constexpr TileType MAP_LAYOUT[] = {
-	TileType::DirtOne, TileType::DirtTwo,
-	TileType::HSquareE, TileType::SSquare,
+	TileType::DirtOne, TileType::DirtTwo, TileType::HSquareE, TileType::SSquare,
 };
 
