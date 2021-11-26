@@ -61,9 +61,12 @@ int main()
 		}
 
 		// Update all the entities
-		for (auto& entity : entities)
+		if (window.hasFocus())
 		{
-			entity->update(delta_time);
+			for (auto& entity : entities)
+			{
+				entity->update(delta_time);
+			}
 		}
 
 		// Rendering
