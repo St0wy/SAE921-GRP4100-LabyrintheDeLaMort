@@ -22,4 +22,5 @@ enum class TileType
 	LightSSquare124,
 	LightSSquare24,
 	LightSSquare2,
+	BottomMidWall,
 };

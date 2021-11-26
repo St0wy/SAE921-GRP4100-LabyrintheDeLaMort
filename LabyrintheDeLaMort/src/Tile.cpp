@@ -58,6 +58,8 @@ sf::Vector2i Tile::get_tile_pos() const
 		return { 8, 2 };
 	case TileType::LightSSquare2:
 		return { 8, 3 };
+	case TileType::BottomMidWall:
+		return { 2, 6 };
 	case TileType::Empty:
 	default:  // NOLINT(clang-diagnostic-covered-switch-default)
 		return { 0, 4 };
