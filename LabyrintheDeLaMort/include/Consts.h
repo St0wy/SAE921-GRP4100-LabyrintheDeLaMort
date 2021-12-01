@@ -18,10 +18,13 @@ constexpr char SPRITESHEET_PATH[] = "./data/sprites/char_spritesheet.png";
 // The number of vertices for a square.
 constexpr int NUMBER_VERT_SQUARE = 4;
 
-constexpr std::size_t MAP_WIDTH = 2;
-constexpr std::size_t MAP_HEIGHT = 2;
+constexpr std::size_t MAP_WIDTH = 5;
+constexpr std::size_t MAP_HEIGHT = 5;
 constexpr TileType MAP_LAYOUT[] = {
-	TileType::DirtOne, TileType::BottomMidWall,
-	TileType::HSquareE, TileType::SSquare,
+	TileType::Wall1, TileType::Wall1, TileType::Wall1,TileType::Wall1, TileType::Wall1,
+	TileType::Wall1, TileType::DirtOne,TileType::DirtOne, TileType::DirtOne,TileType::Wall1,
+	TileType::Wall1, TileType::DirtOne,TileType::DirtOne, TileType::DirtOne,TileType::Wall1,
+	TileType::Wall1, TileType::DirtOne,TileType::DirtOne, TileType::DirtOne,TileType::Wall1,
+	TileType::Wall1, TileType::Wall1, TileType::Wall1,TileType::Wall1, TileType::Wall1,
 };
 
