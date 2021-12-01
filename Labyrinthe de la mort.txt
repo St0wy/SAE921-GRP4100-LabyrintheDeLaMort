@@ -1,6 +1,0 @@
-ctrl s sur CMakeLists.txt à chaque ouverture de projet sfml
-
-pour pusher :
-a) git add .
-b) git commit-m "message de modifs"
-c) git push

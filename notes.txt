@@ -1,0 +1,6 @@
+ctrl s sur CMakeLists.txt à chaque ajout ou suppression de fichier (ce qui inclut les "git pull")
+
+pour pusher :
+a) git add .
+b) git commit-m "message de modifs"
+c) git push
